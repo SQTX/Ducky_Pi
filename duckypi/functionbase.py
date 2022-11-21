@@ -3,7 +3,7 @@ all_functions = ["^OPTS", "^COM", "^COMB", "^SENTEN", "^WRITE", "^HOLD", "^KEY",
 # Descriptions of functions:
 # ^OPTS -
 from time import sleep
-from standard_keymap import keys_map
+from duckypi.standardkeymap import keys_map
 import usb_hid
 from lib.adafruit_hid.keyboard import Keyboard
 from lib.adafruit_hid.keyboard_layout_us import KeyboardLayoutUS

@@ -1,23 +1,23 @@
-from error_detector import error_detector
+# from duckypi.errordetector import error_detector
 
 
 def payload():
     with open("payload_file_exec.txt", "r") as payload_file:
         # TODO: File open errors
-        if not error_detector(payload_file):
-            payload_file.close()
+        # if not error_detector(payload_file):
+        #     payload_file.close()
 
-        payload_file.seek(0)
+        # payload_file.seek(0)
         decoder(payload_file)
 
 
 # def open_file():
 #     pass
 
-# import function_base as function #TODO: do podmiany
-import test_function_base as function
-# from standard_keymap import keys_map #TODO: do podmiany
-from test_standard_keymap import keys_map
+import duckypi.functionbase as function #TODO: do podmiany
+# import duckypi.test_function_base as function
+from duckypi.standardkeymap import keys_map #TODO: do podmiany
+# from duckypi.test_standard_keymap import keys_map
 
 
 def decoder(payload_file):

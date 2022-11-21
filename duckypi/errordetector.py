@@ -1,8 +1,9 @@
-# from function_base import all_functions #TODO: do podmiany
+# !!!!Disactivated!!!!
+# from duckypi.functionbase import all_functions #TODO: do podmiany
 from test_function_base import all_functions
-# from src.exceptions.script_exceptions import * # All types of errors
-from ducky_pi.exceptions.script_exceptions import FunctionDoesntExistError
-from ducky_pi.exceptions.script_exceptions import SyntaxError
+# from duckypi.exceptions.scriptexceptions import * # All types of errors
+from duckypi.exceptions.scriptexceptions import FunctionDoesntExistError
+from duckypi.exceptions.scriptexceptions import SyntaxError
 
 
 # Function whitch detected errors in script
