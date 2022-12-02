@@ -1,4 +1,4 @@
 # import board, digitalio, usb_hid
 
-from duckypi.decoder import payload
+from duckypi.main import payload
 payload()
