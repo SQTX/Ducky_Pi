@@ -1,14 +1,17 @@
-import duckypi.functionbase as function #TODO: do podmiany
-# import duckypi.test_function_base as function
-from duckypi.standardkeymap import keys_map #TODO: do podmiany
-# from duckypi.test_standard_keymap import keys_map
-from duckypi.exceptions.scriptexceptions import ScryptError
-from duckypi.exceptions.scriptexceptions import OptionsNotExistError
-from duckypi.exceptions.scriptexceptions import InvalidArguments
+from duckypi.functionbase import FunctionBase
+from duckypi.standardkeymap import StandardKeyMap
+# --- err ---
+from duckypi.allexceptions import ScryptError
+from duckypi.allexceptions import OptionsNotExistError
+from duckypi.allexceptions import InvalidArguments
 
 
 def descriptor(payload_file):
-    set_options(payload_file)
+    options = set_options(payload_file)
+    keymap_obj = StandardKeyMap(options[2], options[0])
+    function = FunctionBase(options[2], options[0], keymap_obj)
+    keys_map = keymap_obj.keys_map
+
     payload_file.seek(0)
 
     script_line_index = 0
@@ -110,7 +113,7 @@ def descriptor(payload_file):
 
 
 def set_options(payload_file):
-    settings = []
+    user_settings = []
     set_diffult = [True, True, True]  # os-keycode-layout
 
     script_line_index = 0
@@ -136,29 +139,32 @@ def set_options(payload_file):
                 option = str(opt[1]).upper()
 
                 is_ok = False
+                # Sprawdzenie czy kategoria OS została podana oraz czy nic nie zostało już ustawione
                 if category == "OS" and set_diffult[0]:
                     set_diffult[0] = False
                     for os in options.available_OSs:
                         if option == os:
-                            settings.append(os)
+                            user_settings.append(os)
                             is_ok = True
                             continue
                     if not is_ok:
                         raise OptionsNotExistError("OS", script_line_index, options.available_OSs)
+                # Sprawdzenie czy kategoria LANG została podana oraz czy nic nie zostało już ustawione
                 elif category == "LANG" and set_diffult[1]:
                     set_diffult[1] = False
                     for keycode in options.available_keycodes:
                         if option == keycode:
-                            settings.append(keycode)
+                            user_settings.append(keycode)
                             is_ok = True
                             continue
                     if not is_ok:
                         raise OptionsNotExistError("language", script_line_index, options.available_keycodes)
+                # Sprawdzenie czy kategoria LAYOUT została podana oraz czy nic nie zostało już ustawione
                 elif category == "LAYOUT" and set_diffult[2]:
                     set_diffult[2] = False
                     for layout in options.available_keyboard_layouts:
                         if option == layout:
-                            settings.append(layout)
+                            user_settings.append(layout)
                             is_ok = True
                             continue
                     if not is_ok:
@@ -166,7 +172,10 @@ def set_options(payload_file):
             break   # Other ^OPTS will be ignored
     # TODO: set options in function base class and keycode base class
     print(set_diffult)
-    print(settings)
+    print(user_settings)
+
+    settings = user_settings
+    return settings
 
 
 def is_it_number(word, script_line_index):

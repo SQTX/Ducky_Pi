@@ -1,65 +1,65 @@
 all_functions = ["^OPTS", "^COM", "^COMB", "^SENTEN", "^WRITE", "^HOLD", "^KEY", "^WAIT", "^END"]
 
-# Descriptions of functions:
-# ^OPTS -
 from time import sleep
-from duckypi.standardkeymap import keys_map
+from duckypi.optionssetter import get_layout
+# --- lib ---
+from duckypi.standardkeymap import StandardKeyMap
 import usb_hid
 from lib.adafruit_hid.keyboard import Keyboard
-from lib.adafruit_hid.keyboard_layout_us import KeyboardLayoutUS
-
-controller = Keyboard(usb_hid.devices)
-keyboard_layout = KeyboardLayoutUS(controller)
-
-start_time = 0.01
 
 
-def key_func(decoded_key, is_key):
-    sleep(start_time)
-    if is_key:
-        controller.press(decoded_key)
-        controller.release(decoded_key)
-    else:
-        keyboard_layout.write(decoded_key)
+class FunctionBase:
+    def __init__(self, layout, os, keys_map: StandardKeyMap):
+        self.layout = layout
+        self.os = os
+        self.keys_map = keys_map # Set StandardKeyMap object as keys_map
+        self.start_time = 0.01
+
+        self.KeyboardLayout = get_layout(self.layout, self.os)
+        self.controller = Keyboard(usb_hid.devices)
+        self.keyboard_layout = self.KeyboardLayout(self.controller)
 
 
-def comb_func(keys_list):
-    sleep(start_time)
-    for key in keys_list:
-        controller.press(key)
-    for key in keys_list:
-        controller.release(key)
+    def key_func(self, decoded_key, is_key):
+        sleep(self.start_time)
+        if is_key:
+            self.controller.press(decoded_key)
+            self.controller.release(decoded_key)
+        else:
+            self.keyboard_layout.write(decoded_key)
 
+    def comb_func(self, keys_list):
+        sleep(self.start_time)
+        for key in keys_list:
+            self.controller.press(key)
+        for key in keys_list:
+            self.controller.release(key)
 
-def hold_func(decoded_key, is_key, time):
-    sleep(start_time)
-    if is_key:
-        controller.press(decoded_key)
+    def hold_func(self, decoded_key, is_key, time):
+        sleep(self.start_time)
+        if is_key:
+            self.controller.press(decoded_key)
+            sleep(time)
+            self.controller.release(decoded_key)
+        else:
+            self.controller.press(decoded_key)
+            sleep(time)
+            self.controller.release(decoded_key)
+
+    def senten_func(self, text):
+        sleep(self.start_time)
+        self.keyboard_layout.write(text)
+        self.controller.press(self.keys_map.keys_map.get("ENTER"))  # Get dictionary keys_map form self.keys_map
+        self.controller.release(self.keys_map.keys_map.get("ENTER"))
+
+    def write_func(self, text, time):
+        sleep(self.start_time)
+        for letter in text:
+            self.controller.press(letter)
+            self.controller.release(letter)
+            sleep(time)
+        self.controller.press(self.keys_map.keys_map.get("ENTER"))
+        self.controller.release(self.keys_map.keys_map.get("ENTER"))
+
+    def wait_func(self, time):
         sleep(time)
-        controller.release(decoded_key)
-    else:
-        controller.press(decoded_key)
-        sleep(time)
-        controller.release(decoded_key)
-
-
-def senten_func(text):
-    sleep(start_time)
-    keyboard_layout.write(text)
-    controller.press(keys_map.get("ENTER"))
-    controller.release(keys_map.get("ENTER"))
-
-
-def write_func(text, time):
-    sleep(start_time)
-    for letter in text:
-        controller.press(letter)
-        controller.release(letter)
-        sleep(time)
-    controller.press(keys_map.get("ENTER"))
-    controller.release(keys_map.get("ENTER"))
-
-
-def wait_func(time):
-    sleep(time)
-

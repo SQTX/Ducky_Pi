@@ -1,7 +1,8 @@
 from duckypi.descriptor import descriptor
-from duckypi.exceptions.scriptexceptions import ScryptError
-from duckypi.exceptions.scriptexceptions import OptionsNotExistError
-from duckypi.exceptions.scriptexceptions import InvalidArguments
+# --- err ---
+from duckypi.allexceptions import ScryptError
+from duckypi.allexceptions import OptionsNotExistError
+from duckypi.allexceptions import InvalidArguments
 
 
 # =========== Main error detector in script ===========================================================================
@@ -24,8 +25,7 @@ def is_it_error(payload_file):
 
 # =========== Function whitch detected errors in script ===============================================================
 def function_ok(line, script_line_index):
-    # from duckypi.test_function_base import all_functions as functions
-    from duckypi.functionbase import all_functions as functions   #TODO: do podmiany
+    from duckypi.functionbase import all_functions as functions
     line = line.strip('\n')
     words = line.split(' ')
 
