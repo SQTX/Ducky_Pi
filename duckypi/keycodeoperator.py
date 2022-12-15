@@ -21,8 +21,22 @@ class KeycodeOperator:
         if key in alp:
             key_formula += str(key).upper()
         else:
-            # TODO: convert mac key to windows key
+            if self.os == "MAC":
+                key = convert_mac_keys(key)
             key_formula += key
 
         key = eval(key_formula, {"Keycode": self.Keycode})
         return key
+
+
+def convert_mac_keys(mac_key):
+    if mac_key == "COMMAND" or mac_key == "CMD":
+        return "WINDOWS"
+    elif mac_key == "OPTION":
+        return "LEFT_ALT"
+    elif mac_key == "CONTROL":
+        return "LEFT_CONTROL"
+    elif mac_key == "Clear":
+        return "KEYPAD_NUMLOCK"
+    else:
+        return mac_key

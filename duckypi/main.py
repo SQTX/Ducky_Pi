@@ -24,7 +24,7 @@
 
 # Main information about project
 __title__ = "Ducky_Pi"
-__version__ = "0.2.1"
+__version__ = "0.2.2"
 __author__ = "Jakub SQTX Sitarczyk"
 
 # Start main code
