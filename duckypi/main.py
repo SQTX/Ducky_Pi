@@ -5,7 +5,7 @@
 
 # Main information about project
 __title__ = "Ducky_Pi"
-__version__ = "0.2.4"
+__version__ = "0.2.5"
 __author__ = "Jakub SQTX Sitarczyk"
 
 from duckypi.errordetector import error_detected  # Start main code

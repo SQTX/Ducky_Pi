@@ -13,7 +13,7 @@ to a professional tool at a much lower price.
 1. Download **CircuitPython** from the official website
    and install it on your Raspberry Pi Pico.<br>
    [Official CircuitPython webside](https://circuitpython.org/board/raspberry_pi_pico/)
-   1. Installation on **Windows**: Drag and drop *CircuitPython* file into Raspberry Pi memory (RPI-RP2).
+   1. Installation on **Windows**: Drag and drop *CircuitPython* file into the Raspberry Pi memory (RPI-RP2).
    2. Installation on **Mac**: Use below command in `Download` folder:<br>
       `cp -X ./adafruit-circuitpython-raspberry_pi_pico-pl-7.3.3.uf2 /Volumes/RPI-RP2/`<br>
       After that RPI-RP2 should change to CIRCUITPY.
@@ -42,6 +42,10 @@ private computer.
 2. Information about all functions and 'how correct use they'
    you can find in this link:
    [Script documentation](https://github.com/SQTX/Ducky_Pi/blob/main/markdown/SCRIPTDOC.md)
+
+## Reset
+To reset the memory, drag and drop the `flash_nuke.uf2` file into the Raspberry Pi memory (RPI-RP2).
+You can download the file from [here](https://learn.adafruit.com/getting-started-with-raspberry-pi-pico-circuitpython/circuitpython).
 
 ## Licence MIT
 More information you can find here: [Licence MIT](https://github.com/SQTX/Ducky_Pi/blob/main/markdown/LICENSE.md)
