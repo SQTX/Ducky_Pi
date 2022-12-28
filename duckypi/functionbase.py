@@ -47,6 +47,7 @@ class FunctionBase:
     def senten_func(self, text):
         sleep(self.start_time)
         self.keyboard_layout.write(text)
+        sleep(0.7)
         self.controller.press(self.keycode_op.get_key("ENTER"))  # Get dictionary keys_map form self.keys_map
         self.controller.release(self.keycode_op.get_key("ENTER"))
 
@@ -55,6 +56,7 @@ class FunctionBase:
         for letter in text:
             self.keyboard_layout.write(letter)
             sleep(time)
+        sleep(0.7)
         self.controller.press(self.keycode_op.get_key("ENTER"))
         self.controller.release(self.keycode_op.get_key("ENTER"))
 
