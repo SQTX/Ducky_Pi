@@ -16,10 +16,7 @@ to a professional tool at a much lower price.
    1. Installation on **Windows**: Drag and drop *CircuitPython* file into Raspberry Pi memory (RPI-RP2).
    2. Installation on **Mac**: Use below command in `Download` folder:<br>
       `cp -X ./adafruit-circuitpython-raspberry_pi_pico-pl-7.3.3.uf2 /Volumes/RPI-RP2/`<br>
-      After that RPI-RP2 should change to CIRCUIT.
-
-[//]: # (TODO: Write correct name of directory - not CIRCUIT)
-
+      After that RPI-RP2 should change to CIRCUITPY.
 2. Download **Adafruit_CircuitPython_HID** library and put it in `lib` directory.<br>
    [Link to  Adafruit_CircuitPython_HID](https://github.com/adafruit/Adafruit_CircuitPython_HID)
 3. If you want to use other keyboard's layouts or alphabets than US
@@ -44,11 +41,9 @@ private computer.
 1. Script should be written in `payload.txt` file.
 2. Information about all functions and 'how correct use they'
    you can find in this link:
-   [Script documentation]()
-
-[//]: # (TODO: Add correct link to documentation)
+   [Script documentation](https://github.com/SQTX/Ducky_Pi/blob/main/markdown/SCRIPTDOC.md)
 
 ## Licence MIT
-More information you can find here: [Licence MIT]()
+More information you can find here: [Licence MIT](https://github.com/SQTX/Ducky_Pi/blob/main/markdown/LICENSE.md)
 
 
