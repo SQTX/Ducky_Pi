@@ -3,8 +3,11 @@
 #  Author: Jakub SQTX Sitarczyk
 #  ***********************************
 
-# import board, digitalio, usb_hid
-
+from duckypi.hardwarefunction import is_edit_mode, script_start_led, edit_mode_led
 from duckypi.main import payload
-# TODO: hardware function
-payload()
+
+if not is_edit_mode():
+    script_start_led()
+    payload()
+else:
+    edit_mode_led()

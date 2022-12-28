@@ -4,6 +4,7 @@
 #  ***********************************
 
 from duckypi.descriptor import descriptor
+from duckypi.hardwarefunction import script_done_led
 # --- err ---
 from duckypi.allexceptions import ScryptError
 from duckypi.allexceptions import OptionsNotExistError
@@ -14,6 +15,7 @@ from duckypi.allexceptions import InvalidArguments
 def error_detected(payload_file):
     try:
         descriptor(payload_file)
+        script_done_led()
         return False
     except ScryptError as err:
         err.mess()

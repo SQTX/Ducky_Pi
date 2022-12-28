@@ -104,9 +104,8 @@ def descriptor(payload_file):
             if not right_arg:
                 raise InvalidArguments(script_line_index)
         # ------------------------------------------------------------------
-        # In the one moment it write all sentence
+        # Write all sentence at one moment
         if words[0] == "^SENTEN":
-            # TODO: error:: max size
             text = ""
             index = 1
             while index < len(words):
@@ -119,9 +118,8 @@ def descriptor(payload_file):
         # ------------------------------------------------------------------
         if words[0] == "^WRITE":
             # Writes each letter at constant period
-            # TODO: error:: max size
             text = ""
-            time = float(words[len(words) - 1])     # The last agrument is the time of pasue
+            time = float(words[len(words) - 1])  # The last agrument is the time of pasue
             index = 1
             while index < (len(words) - 1):
                 if index == (len(words) - 2):
@@ -138,7 +136,7 @@ def descriptor(payload_file):
 
 
 def set_options(payload_file):
-    user_settings = []
+    user_settings = ["none", "none", "none"]
     set_diffult = [True, True, True]  # os-keycode-layout
 
     script_line_index = 0
@@ -157,6 +155,7 @@ def set_options(payload_file):
             for opt in options:
                 opt_elements.append(opt.split('='))
 
+            # ---------------------- Read options ----------------------
             import duckypi.optionssetter as options
 
             for opt in opt_elements:
@@ -169,7 +168,7 @@ def set_options(payload_file):
                     set_diffult[0] = False
                     for os in options.available_OSs:
                         if option == os:
-                            user_settings.append(os)
+                            user_settings[0] = os
                             is_ok = True
                             continue
                     if not is_ok:
@@ -179,7 +178,7 @@ def set_options(payload_file):
                     set_diffult[1] = False
                     for keycode in options.available_keycodes:
                         if option == keycode:
-                            user_settings.append(keycode)
+                            user_settings[1] = keycode
                             is_ok = True
                             continue
                     if not is_ok:
@@ -189,15 +188,22 @@ def set_options(payload_file):
                     set_diffult[2] = False
                     for layout in options.available_keyboard_layouts:
                         if option == layout:
-                            user_settings.append(layout)
+                            user_settings[2] = layout
                             is_ok = True
                             continue
                     if not is_ok:
                         raise OptionsNotExistError("layout", script_line_index, options.available_keyboard_layouts)
-            break   # Other ^OPTS will be ignored
-    # TODO: set options in function base class and keycode base class
-    print(set_diffult)
-    print(user_settings)
+            break  # Other ^OPTS will be ignored
+
+    # print(set_diffult)
+    # -------- Set deffult options --------
+    if set_diffult[0]:
+        user_settings[0] = "WINDOWS"
+    if set_diffult[1]:
+        user_settings[1] = "US"
+    if set_diffult[2]:
+        user_settings[2] = "US"
+    # print(user_settings)
 
     settings = user_settings
     return settings
