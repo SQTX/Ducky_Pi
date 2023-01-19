@@ -19,7 +19,8 @@ class FunctionBase:
         self.layout = layout
         self.os = os
         self.keycode_op = keycode_op  # Set StandardKeyMap object as keys_map
-        self.start_time = 0.01
+        self.start_time = 0.01      # 10ms
+        self.slower_time = 0.01     # 10ms
 
         self.KeyboardLayout = get_layout(self.layout, self.os)
         self.controller = Keyboard(usb_hid.devices)
@@ -30,6 +31,7 @@ class FunctionBase:
         sleep(self.start_time)
         self.controller.press(decoded_key)
         self.controller.release(decoded_key)
+        self.script_slower(self.slower_time)
 
     def comb_func(self, keys_list):
         sleep(self.start_time)
@@ -37,6 +39,7 @@ class FunctionBase:
             self.controller.press(key)
         for key in keys_list:
             self.controller.release(key)
+        self.script_slower(self.slower_time)
 
     def hold_func(self, decoded_key, time):
         sleep(self.start_time)
@@ -50,6 +53,7 @@ class FunctionBase:
         sleep(0.7)
         self.controller.press(self.keycode_op.get_key("ENTER"))  # Get dictionary keys_map form self.keys_map
         self.controller.release(self.keycode_op.get_key("ENTER"))
+        self.script_slower(self.slower_time)
 
     def write_func(self, text, time):
         sleep(self.start_time)
@@ -59,6 +63,11 @@ class FunctionBase:
         sleep(0.7)
         self.controller.press(self.keycode_op.get_key("ENTER"))
         self.controller.release(self.keycode_op.get_key("ENTER"))
+        self.script_slower(self.slower_time)
 
     def wait_func(self, time):
+        sleep(time)
+
+    # ********************************************************
+    def script_slower(self , time):
         sleep(time)

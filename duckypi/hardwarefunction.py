@@ -40,6 +40,7 @@ def flashing_led(count: int, time):
 
 
 # anti-autorun
+# Patent with cable connection to block autorun inspired by dbisu
 def is_edit_mode():
     mode = digitalio.DigitalInOut(board.GP0)
     mode.direction = digitalio.Direction.INPUT

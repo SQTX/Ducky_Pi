@@ -1,6 +1,9 @@
 # Chwilowo TODO
 payload_file_exec.txt
 
+# has ignored till all examples will be checked and worked
+examples/*
+
 # Created by .ignore support plugin (hsz.mobi)
 ### Python template
 # Byte-compiled / optimized / DLL files
